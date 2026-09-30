@@ -40,14 +40,14 @@ void pesquisa(usuario *p){
     int i, flag = 0;
     char pesq[80];
 
-    printf("pesquise um nome cadastrado");
+    printf("pesquise um nome cadastrado: ");
     fgets(pesq, 80, stdin);
     pesq[strcspn(pesq, "\n")] = '\0';
     system("cls");
     
     for(i = 0; i < 5; i++){
         if(strcmp(pesq, p[i].nome) == 0){
-            printf("nome: %s \n cpf: %s \n endereco: %s \n idade: %d \n ", p[i].nome, p[i].cpf, p[i].endereco, p[i].idade);
+            printf("nome: %s \ncpf: %s \nendereco: %s \nidade: %d \n ", p[i].nome, p[i].cpf, p[i].endereco, p[i].idade);
             flag = 1;
         }
     }
@@ -61,16 +61,18 @@ void pesquisa(usuario *p){
 void classificacao(usuario *p){
     int i, j;
     usuario tr;
-    for(i = 0; i < 5; i++){
-        for(j = 0; j < 5 - i; j++){
-            if(strcmp(p[j].nome, p[j+1].nome) < 0){
+    for(i = 0; i < 4; i++){
+        for(j = 0; j < 4 - i; j++){
+            if(strcmp(p[j].nome, p[j+1].nome) > 0){
                 tr = p[j];
                 p[j] = p[j+1];
                 p[j+1] =  tr;
             }
-        }
-        printf("%d- %s \n",i+1, p[j].nome);
+        }  
     }
+    for(i = 0; i < 5; i++){
+        printf("%d- %s \n",i+1, p[i].nome);
+        }
     printf("aperte enter para continuar");
     while(getchar() != '\n');
     system("cls");
@@ -83,7 +85,7 @@ void alteracao(usuario *p){
     while(getchar() != '\n');
     
     if(i >= 1 && i <= 5){
-        ler_dados(&p[i]);
+        ler_dados(&p[i-1]);
     }else{
         printf("usuario nao encontrado");
     }
@@ -112,6 +114,8 @@ int main(){
             case 3:alteracao(usuario); break;
             case 4:classificacao(usuario);break;
             case 5:printf("saindo do progama");break;
+            default:printf("opcao invalida");break;
         }
     }while(op != 5);
+    return 0;
 }
